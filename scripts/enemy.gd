@@ -12,6 +12,13 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
+func _physics_process(delta: float) -> void:
+	var path_follow := get_parent() as PathFollow2D
+
+	if path_follow:
+		path_follow.progress += speed * delta
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
