@@ -1,39 +1,23 @@
 extends Node2D
 
-@export var enemy_scene: PackedScene
-@onready var enemy_path: Path2D = $EnemyPath
-@onready var timer_label: Label = $CanvasLayer/TimerLabel
-@onready var next_level_button: Button = $CanvasLayer/NextLevelButton
+@onready var start_button: Button = $CanvasLayer/StartButton
+@onready var loading_label: Label = $CanvasLayer/LoadingLabel
 
-var elapsed_time = 0
 var loading_scene := false
-var next_scene_path := "res://scenes/level_2.tscn"
-var points = 50
+var next_scene_path := "res://scenes/level_1.tscn"
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	next_level_button.pressed.connect(_on_next_level_button_pressed)
+	pass
 
-
-func _on_spawn_timer_timeout() -> void:
-	spawn_enemies()
-
-func spawn_enemies() -> void:
-	var path_follow := PathFollow2D.new()
-	path_follow.loop = false
-	path_follow.rotates = false
-	enemy_path.add_child(path_follow)
-
-	var enemy = enemy_scene.instantiate()
-	path_follow.add_child(enemy)
-	enemy.position = Vector2.ZERO
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if not loading_scene:
-		elapsed_time += delta
-		timer_label.text = "Time: %d" % int(elapsed_time)
+		loading_label.visible = false
 		return
 
 	var progress: Array = []
@@ -45,8 +29,9 @@ func _process(delta: float) -> void:
 		var percentage := 0.0
 		if not progress.is_empty():
 			percentage = progress[0] * 100.0
-
-		timer_label.text = "Loading... %d%%" % int(percentage)
+		
+		
+		loading_label.text = "Loading... %d%%" % int(percentage)
 
 	elif status == ResourceLoader.THREAD_LOAD_LOADED:
 		var packed_scene := ResourceLoader.load_threaded_get(next_scene_path)
@@ -55,9 +40,10 @@ func _process(delta: float) -> void:
 
 	elif status == ResourceLoader.THREAD_LOAD_FAILED:
 		loading_scene = false
-		timer_label.text = "Failed to load level."
-		
-func _on_next_level_button_pressed() -> void:
+		loading_label.text = "Failed to load level."
+
+
+func _on_start_button_pressed() -> void:
 	if loading_scene:
 		return
 
@@ -65,6 +51,6 @@ func _on_next_level_button_pressed() -> void:
 
 	if error == OK:
 		loading_scene = true
-		timer_label.text = "Loading... 0%"
+		loading_label.text = "Loading... 0%"
 	else:
-		timer_label.text = "Could not start loading."
+		loading_label.text = "Could not start loading."

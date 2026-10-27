@@ -1,3 +1,56 @@
 [gd_scene format=3 uid="uid://vs03acew58bx"]
 
+[ext_resource type="Script" uid="uid://dgylw4l355c3v" path="res://scenes/turret.gd" id="1_6fjxm"]
+[ext_resource type="Texture2D" uid="uid://dfviw6nnaul24" path="res://assets/turrets/tower1.png" id="2_dirdf"]
+[ext_resource type="Texture2D" uid="uid://dt8aysn2kt6wj" path="res://assets/turrets/tower2.png" id="3_mqfwu"]
+[ext_resource type="Texture2D" uid="uid://d3bxn71o6ftc6" path="res://assets/turrets/tower3.png" id="4_0dv4j"]
+[ext_resource type="Texture2D" uid="uid://bnpyibyfodei3" path="res://assets/turrets/tower4.png" id="5_tg0ex"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wvhbo"]
+animations = [{
+"frames": [{
+"duration": 0.11,
+"texture": ExtResource("2_dirdf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mqfwu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0dv4j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tg0ex")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wvhbo"]
+radius = 93.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6fjxm"]
+load_path = "res://.godot/imported/circle.png-39efa575b324c94af2df2841fa54119a.ctex"
+
 [node name="Turret" type="Node2D" unique_id=2093868795]
+script = ExtResource("1_6fjxm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2111618847]
+scale = Vector2(3.5625, 3.375)
+sprite_frames = SubResource("SpriteFrames_wvhbo")
+autoplay = "default"
+frame = 2
+frame_progress = 0.32664374
+
+[node name="Range" type="Area2D" parent="." unique_id=342026673]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range" unique_id=1146908315]
+shape = SubResource("CircleShape2D_wvhbo")
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=1809317018]
+
+[node name="RangeCircle" type="Sprite2D" parent="." unique_id=1897243701]
+scale = Vector2(0.156, 0.156)
+texture = SubResource("CompressedTexture2D_6fjxm")
+
+[connection signal="body_entered" from="Range" to="." method="_on_range_body_entered"]
