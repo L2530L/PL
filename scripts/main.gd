@@ -3,18 +3,20 @@ extends Node2D
 @export var enemy_scene: PackedScene
 @onready var enemy_path: Path2D = $EnemyPath
 @onready var timer_label: Label = $CanvasLayer/TimerLabel
+@onready var next_level_button: Button = $CanvasLayer/NextLevelButton
 
 var elapsed_time = 0
 var loading_scene := false
 var next_scene_path := "res://scenes/level_2.tscn"
+var points = 50
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	next_level_button.pressed.connect(_on_next_level_button_pressed)
 
 
 func _on_spawn_timer_timeout() -> void:
-	spawn_enemies()# Replace with function body.
+	spawn_enemies()
 
 func spawn_enemies() -> void:
 	var path_follow := PathFollow2D.new()
