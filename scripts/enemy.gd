@@ -17,6 +17,9 @@ func _physics_process(delta: float) -> void:
 
 	if path_follow:
 		path_follow.progress += speed * delta
+	
+	if path_follow.progress_ratio >= 1.0:
+		path_follow.queue_free()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

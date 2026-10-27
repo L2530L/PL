@@ -57,6 +57,7 @@ loop = false
 script = ExtResource("8_6dial")
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=1240312385]
+wait_time = 3.0
 autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1827322751]
@@ -90,4 +91,9 @@ offset_right = 179.0
 offset_bottom = 252.0
 text = "Press 'R' to show range"
 
+[node name="SaveTimer" type="Timer" parent="." unique_id=1299983475]
+wait_time = 10.0
+autostart = true
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="SaveTimer" to="." method="_on_save_timer_timeout"]

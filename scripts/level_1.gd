@@ -13,9 +13,14 @@ var next_scene_path := "res://scenes/level_2.tscn"
 var points = 50
 var placing_turret: bool = false
 
+
+const SAVE_PATH = "user://savegame.save"
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	build_button.pressed.connect(_on_build_button_pressed)
+	load_time()
 
 
 func _on_spawn_timer_timeout() -> void:
@@ -36,7 +41,6 @@ func spawn_enemies() -> void:
 func _process(delta: float) -> void:
 	elapsed_time += delta
 	timer_label.text = "Time: %d" % int(elapsed_time)
-	
 
 
 func _on_build_button_pressed() -> void:
@@ -59,3 +63,28 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			build_turret(get_global_mouse_position())
+
+
+
+func save_time() -> void:
+	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if file:
+		file.store_32(elapsed_time)
+		file.close()
+		print("Time saved: ", elapsed_time)
+	else:
+		print("Failed to save score.")
+
+func load_time() -> void:
+	if FileAccess.file_exists(SAVE_PATH):
+		var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+		if file:
+			elapsed_time = file.get_32()
+			file.close()
+			print("Time loaded: ", elapsed_time)
+	else:
+		print("No save file found. Starting with score 0.")
+
+
+func _on_save_timer_timeout() -> void:
+	save_time()
