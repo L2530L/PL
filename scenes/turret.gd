@@ -1,7 +1,10 @@
 extends Node2D
 
+
+const PROJECTILE_SCENE = preload("res://scenes/projectile.tscn")
+
 @onready var timer = get_node("ShootTimer")
-var damage = 50.0
+var damage: float = 4.0
 
 
 
@@ -24,4 +27,10 @@ func _on_range_body_entered(body: Node2D) -> void:
 	timer.start()
 
 func shoot() ->void :
-	pass
+	var projectile = PROJECTILE_SCENE.instantiate()
+	projectile.damage = 4
+	projectile.position.x = 19.0
+	projectile.position.y = 5.0
+	add_child(projectile)
+	
+	
