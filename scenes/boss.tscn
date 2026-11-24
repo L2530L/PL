@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://btfaufabuaave"]
+
+[ext_resource type="Script" uid="uid://cg3iv8xcts6xn" path="res://scripts/boss.gd" id="1_dlmty"]
+[ext_resource type="Texture2D" uid="uid://cgnlxfk2k5hi5" path="res://assets/enemies/boss/Boss1.png" id="2_jncid"]
+[ext_resource type="Texture2D" uid="uid://b0dr2oi7j3ppt" path="res://assets/enemies/boss/Boss2.png" id="3_qnbj4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wvhbo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jncid")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qnbj4")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r3bxh"]
+radius = 31.0
+
+[node name="Boss" type="CharacterBody2D" unique_id=1204399734]
+script = ExtResource("1_dlmty")
+
+[node name="Sprite0001" type="AnimatedSprite2D" parent="." unique_id=265416674]
+position = Vector2(-1, -1)
+scale = Vector2(4.6250105, 5.1249976)
+sprite_frames = SubResource("SpriteFrames_wvhbo")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1953669337]
+shape = SubResource("CircleShape2D_r3bxh")

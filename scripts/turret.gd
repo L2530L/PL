@@ -6,6 +6,7 @@ const PROJECTILE_SCENE = preload("res://scenes/projectile.tscn")
 @onready var timer = get_node("ShootTimer")
 @onready var range_area: Area2D = $Range
 var damage: float = 4.0
+var cost = 3
 
 
 
@@ -16,7 +17,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$RangeCircle.visible = Input.is_key_pressed(KEY_R)
 
 
@@ -26,12 +27,12 @@ func _on_timer_timeout() ->void:
 		shoot()
 		timer.start()
 
-func _on_range_body_entered(body: Node2D) -> void:
+func _on_range_body_entered(_body: Node2D) -> void:
 	if timer.is_stopped():
 		shoot()
 		timer.start()
 
-func shoot() ->void :
+func shoot() -> void:
 	var enemies = range_area.get_overlapping_bodies()
 	if enemies.is_empty():
 		return
@@ -44,8 +45,7 @@ func shoot() ->void :
 	
 	projectile.damage = damage
 	projectile.target = spawn_pos.direction_to(target.global_position)
-	get_tree().current_scene.add_child(projectile)
 	
-	projectile.global_position = spawn_pos
-	
+	get_tree().current_scene.add_child.call_deferred(projectile)
+
 	

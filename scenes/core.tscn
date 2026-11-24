@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bjpm6j7bcxc42"]
+
+[ext_resource type="Script" uid="uid://bs1m7fb3w7r0h" path="res://scripts/core.gd" id="1_c8oal"]
+[ext_resource type="Texture2D" uid="uid://uhw3i1h2hpy" path="res://assets/core/core1.png" id="1_hlf4f"]
+[ext_resource type="Texture2D" uid="uid://b8tg1jgapweax" path="res://assets/core/core2.png" id="2_c8oal"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gmp2s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hlf4f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_c8oal")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wvhbo"]
+radius = 53.08484
+
+[node name="Core" type="Node2D" unique_id=1190315935]
+script = ExtResource("1_c8oal")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2024451999]
+scale = Vector2(11.5625, 12.5)
+sprite_frames = SubResource("SpriteFrames_gmp2s")
+autoplay = "default"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite2D" unique_id=2023502544]
+root_node = NodePath("../..")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=555475070]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=5008749]
+shape = SubResource("CircleShape2D_wvhbo")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

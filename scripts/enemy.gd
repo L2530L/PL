@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var speed: float = 60.0
 @export var health: float = 10.0
+@export var damage: float = 5.0
 
 
 
@@ -23,7 +24,7 @@ func _physics_process(delta: float) -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if health <= 0:
 		queue_free()
 	
