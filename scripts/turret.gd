@@ -4,6 +4,7 @@ extends Node2D
 const PROJECTILE_SCENE = preload("res://scenes/projectile.tscn")
 
 @onready var timer = get_node("ShootTimer")
+@onready var range_area: Area2D = $Range
 var damage: float = 4.0
 
 
@@ -21,16 +22,30 @@ func _process(delta: float) -> void:
 
 
 func _on_timer_timeout() ->void:
-	shoot()
+	if not range_area.get_overlapping_bodies().is_empty():
+		shoot()
+		timer.start()
 
 func _on_range_body_entered(body: Node2D) -> void:
-	timer.start()
+	if timer.is_stopped():
+		shoot()
+		timer.start()
 
 func shoot() ->void :
+	var enemies = range_area.get_overlapping_bodies()
+	if enemies.is_empty():
+		return
+
+	var target: Node2D = enemies[0]
 	var projectile = PROJECTILE_SCENE.instantiate()
-	projectile.damage = 4
-	projectile.position.x = 19.0
-	projectile.position.y = 5.0
-	add_child(projectile)
+	
+	var spawn_pos = to_global(Vector2(19.0, 5.0))
+	projectile.global_position = spawn_pos
+	
+	projectile.damage = damage
+	projectile.target = spawn_pos.direction_to(target.global_position)
+	get_tree().current_scene.add_child(projectile)
+	
+	projectile.global_position = spawn_pos
 	
 	

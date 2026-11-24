@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://vs03acew58bx"]
 
-[ext_resource type="Script" uid="uid://dgylw4l355c3v" path="res://scenes/turret.gd" id="1_6fjxm"]
+[ext_resource type="Script" uid="uid://dgylw4l355c3v" path="res://scripts/turret.gd" id="1_6fjxm"]
 [ext_resource type="Texture2D" uid="uid://dfviw6nnaul24" path="res://assets/turrets/tower1.png" id="2_dirdf"]
 [ext_resource type="Texture2D" uid="uid://dt8aysn2kt6wj" path="res://assets/turrets/tower2.png" id="3_mqfwu"]
 [ext_resource type="Texture2D" uid="uid://d3bxn71o6ftc6" path="res://assets/turrets/tower3.png" id="4_0dv4j"]
@@ -48,6 +48,7 @@ frame_progress = 0.32664374
 shape = SubResource("CircleShape2D_wvhbo")
 
 [node name="ShootTimer" type="Timer" parent="." unique_id=1809317018]
+one_shot = true
 
 [node name="RangeCircle" type="Sprite2D" parent="." unique_id=1897243701]
 scale = Vector2(0.156, 0.156)

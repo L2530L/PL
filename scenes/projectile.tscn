@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://5mwpqw84xjnr"]
 
-[ext_resource type="Script" uid="uid://goj08ol42dch" path="res://scenes/projectile.gd" id="1_q3m7n"]
+[ext_resource type="Script" uid="uid://goj08ol42dch" path="res://scripts/projectile.gd" id="1_q3m7n"]
 [ext_resource type="Texture2D" uid="uid://ch67bfdnxk8u1" path="res://assets/turrets/projectile.png" id="2_softn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ifow5"]
@@ -16,3 +16,5 @@ texture = ExtResource("2_softn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=527152646]
 shape = SubResource("CircleShape2D_ifow5")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
