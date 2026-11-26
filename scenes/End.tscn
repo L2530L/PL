@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bpngqsklfetug"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wvhbo"]
+font_size = 13
+font_color = Color(0, 0, 0, 1)
+
+[node name="End" type="Control" unique_id=422772024]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=308372541]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(28.799997, 16.14815)
+color = Color(0.7764706, 1, 1, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=649961029]
+texture_filter = 1
+layout_mode = 0
+offset_left = 119.99999
+offset_top = 128.0
+offset_right = 236.0
+offset_bottom = 168.0
+scale = Vector2(7.72942, 8.645411)
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1772336904]
+texture_filter = 6
+texture_repeat = 1
+layout_mode = 2
+text = "Congratulations
+Thanks for playing"
+label_settings = SubResource("LabelSettings_wvhbo")

@@ -17,7 +17,7 @@ func damaged(damage: float) -> void:
 
 func death() -> void:
 	if health <= 0:
-		get_tree().change_scene_to_file("res://scenes/main.tscn")
+		get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

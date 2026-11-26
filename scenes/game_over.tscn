@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://dbs2cpppm2buo"]
+
+[ext_resource type="Script" uid="uid://be3bun03e3psc" path="res://scripts/game_over.gd" id="1_xeevv"]
+
+[node name="GameOver" type="Control" unique_id=2032427349]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_xeevv")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=251607934]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -2.0
+offset_right = 1144.0
+offset_bottom = 648.0
+color = Color(0.03529412, 0.02745098, 0.19215687, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=993254102]
+layout_mode = 0
+offset_left = 284.0
+offset_top = 182.0
+offset_right = 582.1017
+offset_bottom = 253.98181
+scale = Vector2(2.1066566, 3.57607)
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1119899937]
+layout_mode = 2
+text = "The Core has been destroyed"
+horizontal_alignment = 1
+
+[node name="Retry" type="Button" parent="VBoxContainer" unique_id=1194203134]
+layout_mode = 2
+text = "Retry"
+icon_alignment = 1
+
+[node name="MainMenu" type="Button" parent="VBoxContainer" unique_id=1733502136]
+layout_mode = 2
+text = "Main menu"
+
+[connection signal="pressed" from="VBoxContainer/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

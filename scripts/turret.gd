@@ -1,5 +1,8 @@
 extends Node2D
 
+signal turret_died
+
+var grid_cell: Vector2i
 
 const PROJECTILE_SCENE = preload("res://scenes/projectile.tscn")
 
@@ -8,6 +11,8 @@ const PROJECTILE_SCENE = preload("res://scenes/projectile.tscn")
 var damage: float = 4.0
 var cost = 3
 
+@export var inactive_time: float = 5.0
+var inactive_timer: float = 0.0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -17,8 +22,15 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+
+func _process(delta: float) -> void:
+	# OS CONCEPT: I/O management. Polls keyboard state every frame.
 	$RangeCircle.visible = Input.is_key_pressed(KEY_R)
+	inactive_timer += delta
+
+	if inactive_timer >= inactive_time:
+		turret_died.emit()
+		queue_free()
 
 
 
@@ -33,6 +45,7 @@ func _on_range_body_entered(_body: Node2D) -> void:
 		timer.start()
 
 func shoot() -> void:
+	inactive_timer = 0.0
 	var enemies = range_area.get_overlapping_bodies()
 	if enemies.is_empty():
 		return

@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 @onready var start_button: Button = $CanvasLayer/StartButton
 @onready var loading_label: Label = $CanvasLayer/LoadingLabel
@@ -46,7 +46,7 @@ func _process(_delta: float) -> void:
 func _on_start_button_pressed() -> void:
 	if loading_scene:
 		return
-
+	# OS CONCEPT: Threads. The level is loaded in the background.
 	var error := ResourceLoader.load_threaded_request(next_scene_path)
 
 	if error == OK:
@@ -54,3 +54,7 @@ func _on_start_button_pressed() -> void:
 		loading_label.text = "Loading... 0%"
 	else:
 		loading_label.text = "Could not start loading."
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()
